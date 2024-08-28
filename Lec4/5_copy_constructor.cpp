@@ -33,6 +33,9 @@ Marine::Marine(){
     name = NULL;
 }
 
+// 생성자 초기화
+// Marine::Marine() : hp(50), coord_x(0), coord_y(0), damage(5), is_dead(false) {}
+
 Marine::Marine(int x, int y) {
     coord_x = x;
     coord_y = y;
@@ -41,6 +44,9 @@ Marine::Marine(int x, int y) {
     is_dead = false;
     name = NULL;
 }
+
+// 생성자 초기화
+// Marine::Marine(int x, int y) : hp(50), coord_x(0), coord_y(0), damage(5), is_dead(false) {}
 
 Marine::Marine(int x, int y, const char* marine_name) {
     name = new char[strlen(marine_name) + 1];
