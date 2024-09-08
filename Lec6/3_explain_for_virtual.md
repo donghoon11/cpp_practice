@@ -35,3 +35,26 @@
         // 가상함수 테이블에서 func1()에 해당하는 함수를 실행하면 Child::func1() 호출되며, 성공적으로 Parent::func1() 을 오버라이드. 
     }
     ```
+<br/></br>
+
+## 다중 상속 시 주의할 점
+
+```cpp
+class Human {
+    public:
+    // ...
+};
+class Guy : public virtual Human {
+    // ...
+}
+class Man : public virtual Human {
+    // ...
+}
+class Boy : public Guy, public Man{
+    // ...
+}
+```
+
+* 위와 같이 virtual 키워드를 활용하면 컴파일러가 Human 을 한 번만 포함하도록 지정할 수 있다.
+* 물론 가상 상속 시에, Boy 의 생성자에서 부모 클래스 각각의 생성자를 호출함은 당연하고, Human 의 생성자 또한 호출해주어야 한다.
+
