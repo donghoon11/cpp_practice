@@ -81,7 +81,7 @@ class NumStack {
 
   ~NumStack();
 };
-}
+
 
 class Cell{
   protected:
@@ -124,6 +124,22 @@ class Table{
   string stringify(const string& s);
   string stringify(int row, int col);
 
+  // 순수 가상 함수가 포함되어 있기 때문에 Table 클래스의 객체는 생성할 수 없다.
   virtual string print_table() = 0;
+};
+
+// Table 클래스를 상속 받는 TxtTable 클래스
+class TxtTable : public Table{
+  string repeat_char(int n, char);
+
+  // 숫자로 된 열 번호를 A, B, ..., Z, AA, AB, ... 이런 순으로 넘버링
+  string col_num_to_str(int n);
+
+  public:
+  TxtTable(int row, int col);
+
+  // 텍스트로 표를 출력
+  string print_table();
+};
 }
 #endif
