@@ -1,7 +1,7 @@
 #include "utils.h"
 
 namespace MyExcel{
-Vector::Vector(int n = 1) : data(new string[n]), capacity(n), length(0) {}
+Vector::Vector(int n) : data(new string[n]), capacity(n), length(0) {}
 void Vector::push_back(string s){
     if (capacity <= length){
         string* temp = new string[capacity * 2];        // 배열이 다 차면 그냥 공간을 두 배 늘려준다.
@@ -17,7 +17,7 @@ void Vector::push_back(string s){
     length++;
 }
 
-string Vector::operator[](int i) {return data[i]}
+string Vector::operator[](int i) {return data[i];}
 
 void Vector::remove(int x){
     for (int i = x+1; i<length; i++){
@@ -35,7 +35,7 @@ Vector::~Vector(){
 }
 
 // Stack
-Stack::Stack() : start(NULL, ""), {current = &start;}
+Stack::Stack() : start(NULL, "") {current = &start;}
 
 void Stack::push(string s){
     Node* n = new Node(current, s);
@@ -70,6 +70,7 @@ Stack::~Stack(){
     }
 }
 
+// NumStack
 NumStack::NumStack() : start(NULL, 0) { current = &start; }
 void NumStack::push(double s) {
   Node* n = new Node(current, s);
@@ -98,4 +99,34 @@ NumStack::~NumStack() {
     delete prev;
   }
 }
+
+// Cell
+Cell::Cell(string data, int x, int y, Table* table) : data(data), x(x), y(y), table(table) {}
+string Cell::stringify() {return data;}
+int Cell::to_numeric() {return 0;}
+
+// Table
+Table::Table(int max_row_size, int max_col_size) 
+    : max_row_size(max_row_size), max_col_size(max_col_size) {
+        data_table = new Cell**[max_row_size];
+
+        for (int i = 0; i < max_row_size; i++){
+            data_table[i] = new Cell*[max_col_size];
+            for (int j = 0; j < max_col_size; j++){
+                data_table[i][j] = NULL;
+            }
+        }
+    }
+Table::~Table() {
+    for (int i = 0; i < max_row_size; i++) {
+        for (int j = 0; j < max_col_size; j++) {
+            if (data_table[i][j]) delete data_table[i][j];
+        }
+    }
+    for (int i = 0; i < max_row_size; i++) {
+        delete[] data_table[i];
+    }
+    delete[] data_table;
+}
+
 }

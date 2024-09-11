@@ -1,4 +1,4 @@
-#ifdef UTILS_H
+#ifndef UTILS_H
 #define UTILS_H
 
 #include <string>
@@ -69,7 +69,7 @@ class NumStack {
     Node(Node* prev, double s) : prev(prev), s(s) {}
   };
 
-  Node* current;d
+  Node* current;
   Node start;
 
  public:
@@ -81,5 +81,49 @@ class NumStack {
 
   ~NumStack();
 };
+}
+
+class Cell{
+  protected:
+  int x, y;
+  Table* table;
+
+  string data;
+
+  public:
+  virtual string stringify();
+  virtual int to_numeric();
+
+  Cell(string data, int x, int y, Table* table);
+};
+
+class Table{
+  protected:
+  // 행 및 열의 최대 크기
+  int max_row_size, max_col_size;
+
+  // 데이터를 보관하는 테이블
+  // Cell* dmf qhrhksgksms 2ckdnjs qoduf
+  Cell*** data_table;
+
+  public:
+  Table(int max_row_size, int max_col_size);
+  ~Table();
+  
+  // 새로운 셀을 row 행 col 열에 등록한다.
+  void reg_cell(Cell* c, int row, int col);
+
+  //해당 셀의 정수값을 반환한다.
+  // s : 셀 이름
+  int to_numeric(const string& s);
+
+  // 행 및 열 번호로 셀을 호출한다.
+  int to_numeric(int row, int col);
+
+  // 해당 셀의 문자열을 반환한다.
+  string stringify(const string& s);
+  string stringify(int row, int col);
+
+  virtual string print_table() = 0;
 }
 #endif
